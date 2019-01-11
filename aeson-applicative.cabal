@@ -1,0 +1,48 @@
+name:                aeson-applicative
+version:             1.4.2.0
+synopsis:            Aeson-like parsing 'Compose'd with an additional Applicative
+description:         Aeson-like parsing 'Compose'd with an additional Applicative. Ie.
+  @atoEncoding :: Applicative m => a -> m Encoding@
+  @aparseJSON :: Applicative m => Value -> Parser (m a)@
+homepage:            https://github.com/louispan/aeson-applicative#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Louis Pan
+maintainer:          louis@pan.me
+copyright:           2019 Louis Pan
+category:            GUI
+build-type:          Simple
+cabal-version:       >= 1.10
+tested-with:         GHC == 8.4.1
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Data.Aeson.Applicative
+                       Data.Aeson.Applicative.Internal.Generic
+                       Data.Aeson.Applicative.Internal.ToJSON
+                       Data.Aeson.Applicative.Internal.FromJSON
+  build-depends:       base >= 4.7 && < 5
+                     , aeson >= 1.1.2.0
+                     , attoparsec >= 0.13
+                     , base-compat >= 0.9
+                     , bytestring >= 0.10
+                     , containers >= 0.5
+                     , contravariant >= 1.4
+                     , dlist >= 0.8
+                     , hashable >= 1.2
+                     , primitive >= 0.6
+                     , scientific >= 0.3
+                     , tagged >= 0.8
+                     , text >= 1.2
+                     , time >=1.6
+                     , time-locale-compat >= 0.1
+                     , transformers >= 0.4
+                     , uuid-types >= 1.0
+                     , unordered-containers >= 0.2.7
+                     , vector >= 0.11
+  ghc-options:        -Wall -Wredundant-constraints
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/louispan/aeson-applicative
