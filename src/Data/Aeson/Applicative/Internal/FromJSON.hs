@@ -80,6 +80,7 @@ import Unsafe.Coerce (unsafeCoerce)
 
 #if MIN_VERSION_primitive(0,6,4)
 import qualified GHC.Exts as Exts
+import qualified Data.Primitive.Array as PM
 import qualified Data.Primitive.PrimArray as PM
 import qualified Data.Primitive.SmallArray as PM
 import qualified Data.Primitive.UnliftedArray as PM
@@ -933,7 +934,7 @@ instance (AFromJSON1 m f, AFromJSON1 m g, AFromJSON m a) => AFromJSON m (Product
     {-# INLINE aparseJSON #-}
 
 
-instance (AFromJSON1 m  f, AFromJSON1 m g) => AFromJSON1 m (Sum f g) where
+instance (AFromJSON1 m f, AFromJSON1 m g) => AFromJSON1 m (Sum f g) where
     aliftParseJSON p pl (Object (H.toList -> [(key, value)]))
         | key == inl = fmap InL <$> aliftParseJSON p pl value <?> Key inl
         | key == inr = fmap InR <$> aliftParseJSON p pl value <?> Key inl
@@ -1135,18 +1136,18 @@ instance Applicative m => AFromJSON m DotNetTime where
 -------------------------------------------------------------------------------
 
 #if MIN_VERSION_primitive(0,6,4)
-instance AFromJSON m a => AFromJSON m (PM.Array a) where
+instance (Applicative m, AFromJSON m a) => AFromJSON m (PM.Array a) where
   -- note: we could do better than this if vector exposed the data
   -- constructor in Data.Vector.
   aparseJSON = fmap (fmap Exts.fromList) . aparseJSON
 
-instance AFromJSON m a => AFromJSON m (PM.SmallArray a) where
+instance (Applicative m, AFromJSON m a) => AFromJSON m (PM.SmallArray a) where
   aparseJSON = fmap (fmap Exts.fromList) . aparseJSON
 
-instance (PM.Prim a,FromJSON a) => AFromJSON m (PM.PrimArray a) where
+instance (Applicative m, VP.Prim a, AFromJSON m a) => AFromJSON m (PM.PrimArray a) where
   aparseJSON = fmap (fmap Exts.fromList) . aparseJSON
 
-instance (PM.PrimUnlifted a,FromJSON a) => AFromJSON m (PM.UnliftedArray a) where
+instance (Applicative m, PM.PrimUnlifted a, AFromJSON m a) => AFromJSON m (PM.UnliftedArray a) where
   aparseJSON = fmap (fmap Exts.fromList) . aparseJSON
 #endif
 

@@ -683,9 +683,10 @@ instance {-# OVERLAPPING #-}
         constructorTagModifier opts $ conName (undefined :: t c U1 p)
 
 --------------------------------------------------------------------------------
--- Copy of aeson-1.4.2.0, which wasn't availabl in aeson-1.1.2.0
+-- Copy of aeson-1.4.2.0, which wasn't available in aeson-1.1.2.0
+-- and was hidden
 --------------------------------------------------------------------------------
-#if !MIN_VERSION_aeson(1,3,0)
+
 -- | Wrap a list of pairs as an object.
 class Monoid pairs => FromPairs enc pairs | enc -> pairs where
   fromPairs :: pairs -> enc
@@ -714,9 +715,6 @@ instance (e ~ Encoding) => KeyValuePair e Series where
 
         pair' :: Encoding' Text -> Encoding -> Series
         pair' name val = Value $ retagEncoding $ retagEncoding name >< colon >< val
-
-#endif
-
 
 -------------------------------------------------------------------------------
 -- Instances
