@@ -1,3 +1,4 @@
+cabal-version:       2.2
 name:                aeson-applicative
 version:             1.4.2.0
 synopsis:            Aeson-like parsing 'Compose'd with an additional Applicative
@@ -5,15 +6,13 @@ description:         Aeson-like parsing 'Compose'd with an additional Applicativ
   @atoEncoding :: Applicative m => a -> m Encoding@
   @aparseJSON :: Applicative m => Value -> Parser (m a)@
 homepage:            https://github.com/louispan/aeson-applicative#readme
-license:             BSD3
+license:             BSD-3-Clause
 license-file:        LICENSE
 author:              Louis Pan
 maintainer:          louis@pan.me
 copyright:           2019 Louis Pan
 category:            GUI
 build-type:          Simple
-cabal-version:       >= 1.10
-tested-with:         GHC == 8.4.1
 
 library
   hs-source-dirs:      src
