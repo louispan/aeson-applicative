@@ -100,7 +100,9 @@ import qualified Data.Primitive.Array as PM
 import qualified Data.Primitive.PrimArray as PM
 import qualified Data.Primitive.SmallArray as PM
 import qualified Data.Primitive.Types as PM
+#if !MIN_VERSION_primitive(0,7,0)
 import qualified Data.Primitive.UnliftedArray as PM
+#endif
 import qualified GHC.Exts as Exts
 #endif
 
@@ -1142,8 +1144,10 @@ instance (AToJSON m a) => AToJSON m (PM.SmallArray a) where
 instance (PM.Prim a, AToJSON m a) => AToJSON m (PM.PrimArray a) where
   atoEncoding = atoEncoding . Exts.toList
 
+#if !MIN_VERSION_primitive(0,7,0)
 instance (PM.PrimUnlifted a, AToJSON m a) => AToJSON m (PM.UnliftedArray a) where
   atoEncoding = atoEncoding . Exts.toList
+#endif
 #endif
 
 -------------------------------------------------------------------------------

@@ -83,7 +83,9 @@ import qualified GHC.Exts as Exts
 import qualified Data.Primitive.Array as PM
 import qualified Data.Primitive.PrimArray as PM
 import qualified Data.Primitive.SmallArray as PM
+#if !MIN_VERSION_primitive(0,7,0)
 import qualified Data.Primitive.UnliftedArray as PM
+#endif
 #endif
 
 -- Based on aeson-1.4.2.0
@@ -1147,8 +1149,10 @@ instance (Applicative m, AFromJSON m a) => AFromJSON m (PM.SmallArray a) where
 instance (Applicative m, VP.Prim a, AFromJSON m a) => AFromJSON m (PM.PrimArray a) where
   aparseJSON = fmap (fmap Exts.fromList) . aparseJSON
 
+#if !MIN_VERSION_primitive(0,7,0)
 instance (Applicative m, PM.PrimUnlifted a, AFromJSON m a) => AFromJSON m (PM.UnliftedArray a) where
   aparseJSON = fmap (fmap Exts.fromList) . aparseJSON
+#endif
 #endif
 
 -------------------------------------------------------------------------------
