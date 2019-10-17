@@ -1,6 +1,6 @@
 cabal-version:       2.2
 name:                aeson-applicative
-version:             1.4.2.0
+version:             1.4.2.1
 synopsis:            Aeson-like parsing 'Compose'd with an additional Applicative
 description:         Aeson-like parsing 'Compose'd with an additional Applicative. Ie.
   @atoEncoding :: Applicative m => a -> m Encoding@
